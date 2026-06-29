@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { apiUrl } from '../lib/api';
 
 interface SearchResult {
   manga_id: string;
@@ -48,9 +49,8 @@ export default function SearchBar() {
   const searchManga = async (searchQuery: string) => {
     setLoading(true);
     try {
-      const base = process.env.NEXT_PUBLIC_API_BASE_URL || '';
       const response = await fetch(
-        `${base}/v1/manga/list?search=${encodeURIComponent(searchQuery)}&page=1&page_size=5`
+        apiUrl(`/v1/manga/list?search=${encodeURIComponent(searchQuery)}&page=1&page_size=5`)
       );
       const json = await response.json();
       setResults(json.data || []);

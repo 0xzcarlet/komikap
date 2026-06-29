@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { apiUrl } from '../../lib/api';
 
 interface ChapterListItem {
   chapter_id: string;
@@ -34,9 +35,8 @@ export default function ChapterList({ mangaId }: { mangaId: string }) {
     async function fetchChapters() {
       setLoading(true);
       try {
-        const base = process.env.NEXT_PUBLIC_API_BASE_URL || '';
         const response = await fetch(
-          `${base}/v1/chapter/${mangaId}/list?sort_by=chapter_number&sort_order=desc&page=${currentPage}&page_size=${pageSize}`
+          apiUrl(`/v1/chapter/${mangaId}/list?sort_by=chapter_number&sort_order=desc&page=${currentPage}&page_size=${pageSize}`)
         );
         const json = await response.json();
         setChapters(json.data || []);

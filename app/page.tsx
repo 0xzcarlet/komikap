@@ -1,17 +1,17 @@
 import MangaCard from './components/MangaCard';
 import HeroBanner from './components/HeroBanner';
+import { apiUrl } from './lib/api';
 
 /**
  * Fetches recommended and top manga lists from the Shinigami API. The calls
  * happen on the server at request time so fresh data is always served.
  */
 async function getHomeData() {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [recRes, topRes] = await Promise.all([
-    fetch(`${base}/v1/manga/list?is_recommended=1&page=1&page_size=12`, {
+    fetch(apiUrl('/v1/manga/list?is_recommended=1&page=1&page_size=12'), {
       cache: 'no-store',
     }),
-    fetch(`${base}/v1/manga/top?filter=all_time&page=1&page_size=10`, {
+    fetch(apiUrl('/v1/manga/top?filter=all_time&page=1&page_size=10'), {
       cache: 'no-store',
     }),
   ]);

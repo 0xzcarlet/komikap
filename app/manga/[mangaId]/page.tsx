@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import ChapterList from './ChapterList';
+import { apiUrl } from '../../lib/api';
 
 interface MangaDetail {
   title: string;
@@ -12,8 +13,7 @@ interface MangaDetail {
 }
 
 async function getMangaDetail(mangaId: string) {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const detailRes = await fetch(`${base}/v1/manga/detail/${mangaId}`, {
+  const detailRes = await fetch(apiUrl(`/v1/manga/detail/${mangaId}`), {
     cache: 'no-store',
   });
   if (!detailRes.ok) {

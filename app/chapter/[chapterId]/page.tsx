@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { apiUrl } from '../../lib/api';
 
 interface ChapterDetail {
   chapter_number: number;
@@ -15,8 +16,7 @@ interface ChapterDetail {
 }
 
 async function getChapter(chapterId: string) {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const res = await fetch(`${base}/v1/chapter/detail/${chapterId}`, {
+  const res = await fetch(apiUrl(`/v1/chapter/detail/${chapterId}`), {
     cache: 'no-store',
   });
   if (!res.ok) throw new Error('Failed to fetch chapter');

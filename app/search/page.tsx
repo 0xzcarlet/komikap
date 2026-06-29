@@ -1,9 +1,9 @@
 import MangaCard from '../components/MangaCard';
+import { apiUrl } from '../lib/api';
 
 async function getSearchResults(query: string) {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
   const response = await fetch(
-    `${base}/v1/manga/list?search=${encodeURIComponent(query)}&page=1&page_size=24`,
+    apiUrl(`/v1/manga/list?search=${encodeURIComponent(query)}&page=1&page_size=24`),
     { cache: 'no-store' }
   );
   const json = await response.json();
